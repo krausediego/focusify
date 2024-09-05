@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
+import { TasksProvider } from '@/contexts';
 import { Routes } from '@/routes';
 import {
   useFonts,
@@ -38,9 +40,13 @@ const App: React.FC = () => {
   }
 
   return (
-    <NavigationContainer>
-      <Routes />
-    </NavigationContainer>
+    <GestureHandlerRootView>
+      <TasksProvider>
+        <NavigationContainer>
+          <Routes />
+        </NavigationContainer>
+      </TasksProvider>
+    </GestureHandlerRootView>
   );
 };
 
