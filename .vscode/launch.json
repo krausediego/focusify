@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "radon-ide",
+      "request": "launch",
+      "name": "Radon IDE panel",
+      "ios": {
+        "configuration": "Debug"
+      },
+      "android": {
+        "buildType": "debug"
+      }
+    }
+  ]
+}

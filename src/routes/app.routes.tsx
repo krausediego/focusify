@@ -87,7 +87,7 @@ const AppRoutes: React.FC = () => {
         <AppTabs.Screen
           name="Manage"
           options={{
-            title: 'Gerenciar',
+            headerShown: false,
             tabBarIcon: ({ focused, color }) => {
               return <Category filled={focused} color={color} />;
             },

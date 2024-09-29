@@ -21,3 +21,6 @@ export * from './timer';
 export * from './sun';
 export * from './flag';
 export * from './work';
+export * from './tag';
+export * from './paper-plus';
+export * from './three-dots-vertical';

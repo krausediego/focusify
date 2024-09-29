@@ -15,6 +15,29 @@ const TasksContext = React.createContext<TasksContextProps>(
   {} as TasksContextProps,
 );
 
+export interface TaskResponse {
+  task: {
+    id: string;
+    name: string;
+    estimatedPomodoros: number;
+    date: Date;
+    priority: 'HIGH' | 'MEDIUM' | 'LOW' | 'NOPRIORITY';
+    status: boolean;
+    active: boolean;
+    userId: string;
+  };
+  tags: {
+    name: string;
+    id: string;
+    color: string;
+  }[];
+  project: {
+    name: string;
+    id: string;
+    color: string;
+  };
+}
+
 const TasksProvider: React.FC<TasksProviderProps> = ({ children }) => {
   const tasksBottomSheetRef = React.useRef<BottomSheet>(null);
 

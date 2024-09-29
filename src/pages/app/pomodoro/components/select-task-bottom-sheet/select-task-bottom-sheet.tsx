@@ -1,16 +1,18 @@
 import { useCallback } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 
-import { Input } from '@/components';
+import { getAllActiveTasks } from '@/api/get-all-active-tasks';
+import { Input, TaskCard } from '@/components';
 import { useTasks } from '@/contexts';
 import BottomSheet, {
   BottomSheetView,
   BottomSheetBackdrop,
 } from '@gorhom/bottom-sheet';
 import { BottomSheetDefaultBackdropProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types';
-import { Flag, PlayRounded, Search, Sun, Timer, Work } from 'assets/icons';
+import { useQuery } from '@tanstack/react-query';
+import { Search } from 'assets/icons';
 
-import { SelectTaskBottomSheetHeader } from '.';
+import { SelectTaskBottomSheetHeader } from './header';
 
 const SelectTaskBottomSheet: React.FC = () => {
   const { tasksBottomSheetRef } = useTasks();
@@ -26,6 +28,11 @@ const SelectTaskBottomSheet: React.FC = () => {
     ),
     [],
   );
+
+  const { data } = useQuery({
+    queryFn: getAllActiveTasks,
+    queryKey: ['tasks[]'],
+  });
 
   return (
     <BottomSheet
@@ -48,113 +55,16 @@ const SelectTaskBottomSheet: React.FC = () => {
           <ScrollView
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{ gap: 20 }}>
-            <View className="w-full h-32 flex-row rounded-lg border border-gray-200 overflow-hidden">
-              <View className="w-1 h-full bg-green-500 rounded-tl-lg rounded-bl-lg" />
-              <View className="w-full flex-row justify-between items-center pl-4 pr-5">
-                <View className="w-6 h-6 rounded-full border-2 border-primary-900" />
-                <View className="gap-3">
-                  <Text className="font-semibold text-lg text-gray-900">
-                    Design User Experience (UX)
-                  </Text>
-                  <View className="flex-row gap-2">
-                    <Text className="font-regular text-green-500">#Design</Text>
-                    <Text className="font-regular text-blue-500">#Work</Text>
-                    <Text className="font-regular text-purple-500">
-                      #Productive
-                    </Text>
-                  </View>
-                  <View className="flex-row items-center gap-5">
-                    <View className="flex-row items-center gap-2">
-                      <Timer />
-                      <Text className="font-regular text-sm text-gray-700">
-                        4
-                      </Text>
-                    </View>
-                    <Sun />
-                    <Flag />
-                    <View className="flex-row items-center gap-2">
-                      <Work />
-                      <Text className="font-regular text-sm text-gray-700">
-                        Pomodoro App
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-                <PlayRounded />
-              </View>
-            </View>
-
-            <View className="w-full h-32 flex-row rounded-lg border border-gray-200 overflow-hidden">
-              <View className="w-1 h-full bg-green-500 rounded-tl-lg rounded-bl-lg" />
-              <View className="w-full flex-row justify-between items-center pl-4 pr-5">
-                <View className="w-6 h-6 rounded-full border-2 border-primary-900" />
-                <View className="gap-3">
-                  <Text className="font-semibold text-lg text-gray-900">
-                    Design User Experience (UX)
-                  </Text>
-                  <View className="flex-row gap-2">
-                    <Text className="font-regular text-green-500">#Design</Text>
-                    <Text className="font-regular text-blue-500">#Work</Text>
-                    <Text className="font-regular text-purple-500">
-                      #Productive
-                    </Text>
-                  </View>
-                  <View className="flex-row items-center gap-5">
-                    <View className="flex-row items-center gap-2">
-                      <Timer />
-                      <Text className="font-regular text-sm text-gray-700">
-                        4
-                      </Text>
-                    </View>
-                    <Sun />
-                    <Flag />
-                    <View className="flex-row items-center gap-2">
-                      <Work />
-                      <Text className="font-regular text-sm text-gray-700">
-                        Pomodoro App
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-                <PlayRounded />
-              </View>
-            </View>
-
-            <View className="w-full h-32 flex-row rounded-lg border border-gray-200 overflow-hidden">
-              <View className="w-1 h-full bg-green-500 rounded-tl-lg rounded-bl-lg" />
-              <View className="w-full flex-row justify-between items-center pl-4 pr-5">
-                <View className="w-6 h-6 rounded-full border-2 border-primary-900" />
-                <View className="gap-3">
-                  <Text className="font-semibold text-lg text-gray-900">
-                    Design User Experience (UX)
-                  </Text>
-                  <View className="flex-row gap-2">
-                    <Text className="font-regular text-green-500">#Design</Text>
-                    <Text className="font-regular text-blue-500">#Work</Text>
-                    <Text className="font-regular text-purple-500">
-                      #Productive
-                    </Text>
-                  </View>
-                  <View className="flex-row items-center gap-5">
-                    <View className="flex-row items-center gap-2">
-                      <Timer />
-                      <Text className="font-regular text-sm text-gray-700">
-                        4
-                      </Text>
-                    </View>
-                    <Sun />
-                    <Flag />
-                    <View className="flex-row items-center gap-2">
-                      <Work />
-                      <Text className="font-regular text-sm text-gray-700">
-                        Pomodoro App
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-                <PlayRounded />
-              </View>
-            </View>
+            {data?.map(response => {
+              return (
+                <TaskCard
+                  key={response.task.id}
+                  task={response.task}
+                  project={response.project}
+                  tags={response.tags}
+                />
+              );
+            })}
           </ScrollView>
         </View>
       </BottomSheetView>

@@ -40,21 +40,15 @@ const PomodoroPage: React.FC = () => {
       <View className="w-full flex-row justify-between items-center">
         <View className="items-center gap-2">
           <DangerCircle />
-          <Text className="font-medium text-sm text-gray-700">
-            Modo restrito
-          </Text>
+          <Text className="font-medium text-sm text-gray-700">restrições</Text>
         </View>
         <View className="items-center gap-2">
           <HourGlass />
-          <Text className="font-medium text-sm text-gray-700">
-            Modo de tempo
-          </Text>
+          <Text className="font-medium text-sm text-gray-700">tempos</Text>
         </View>
         <View className="items-center gap-2">
           <MusicNote />
-          <Text className="font-medium text-sm text-gray-700">
-            Modo de sons
-          </Text>
+          <Text className="font-medium text-sm text-gray-700">sons</Text>
         </View>
       </View>
       <View className="h-3/5 w-[800px] rounded-tl-[800px] rounded-tr-[800px] absolute bottom-0 -z-10 bg-white mt-auto" />

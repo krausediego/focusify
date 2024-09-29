@@ -4,16 +4,18 @@ import { TouchableOpacity } from 'react-native';
 import { cn } from '@/lib';
 import { tv, type VariantProps } from 'tailwind-variants';
 
+import { Spinner } from '../spinner';
 import { TextClassContext } from './text';
 
 const buttonVariants = tv({
-  base: 'h-14 w-full flex-row items-center justify-center relative rounded-full disabled:bg-primaryDisabled',
+  base: 'flex-1 h-14 max-h-14 flex-row items-center justify-center relative rounded-full',
   variants: {
     type: {
-      primary: 'bg-primary-900',
-      primaryLight: 'bg-primaryLight',
+      primary: 'bg-primary-900 disabled:bg-primaryDisabled',
+      primaryLight: 'bg-primaryLight disabled:bg-gray-200',
       social: 'border border-gray-200',
       text: 'bg-transparent',
+      rounded: 'w-14 h-14 bg-primary-900 rounded-full',
     },
   },
   defaultVariants: {
@@ -29,6 +31,7 @@ const buttonTextVariants = tv({
       primaryLight: 'text-primary-900',
       social: '',
       text: 'font-semibold text-lg text-primary-900',
+      rounded: '',
     },
   },
   defaultVariants: {
@@ -37,14 +40,24 @@ const buttonTextVariants = tv({
 });
 
 type ButtonProps = React.ComponentPropsWithoutRef<typeof TouchableOpacity> &
-  VariantProps<typeof buttonVariants>;
+  VariantProps<typeof buttonVariants> & {
+    isLoading?: boolean;
+  };
 
 const Button = React.forwardRef<
   React.ElementRef<typeof TouchableOpacity>,
   ButtonProps
 >(
   (
-    { type, activeOpacity = 0.7, disabled = false, className, ...props },
+    {
+      type,
+      activeOpacity = 0.7,
+      disabled = false,
+      isLoading = false,
+      children,
+      className,
+      ...props
+    },
     ref,
   ) => {
     return (
@@ -57,9 +70,10 @@ const Button = React.forwardRef<
           {...props}
           ref={ref}
           activeOpacity={activeOpacity}
-          disabled={disabled}
-          className={cn(buttonVariants({ type }), className)}
-        />
+          disabled={disabled || isLoading}
+          className={cn(buttonVariants({ type }), className)}>
+          {isLoading ? <Spinner /> : children}
+        </TouchableOpacity>
       </TextClassContext.Provider>
     );
   },

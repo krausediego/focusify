@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Text as RNText } from 'react-native';
 
-import { SlottableTextProps, TextRef } from '@/components/primitives';
 import * as Slot from '@/components/primitives/slot';
+import { SlottableTextProps, TextRef } from '@/components/primitives/types';
 import { cn } from '@/lib';
 
 const TextClassContext = React.createContext<string | undefined>(undefined);
