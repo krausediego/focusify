@@ -1,0 +1,43 @@
+import Svg, {
+  ClipPath,
+  Defs,
+  G,
+  LinearGradient,
+  Path,
+  Rect,
+  Stop,
+  SvgProps,
+} from "react-native-svg";
+
+export function Facebook({ ...props }: SvgProps) {
+  return (
+    <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" {...props}>
+      <G clip-path="url(#clip0_8423_10425)">
+        <Path
+          d="M12 0C5.3724 0 0 5.3724 0 12C0 18.6276 5.3724 24 12 24C18.6276 24 24 18.6276 24 12C24 5.3724 18.6276 0 12 0Z"
+          fill="url(#paint0_linear_8423_10425)"
+        />
+        <Path
+          d="M13.73 16.8578H16.9866L17.4981 13.5496H13.73V11.7414C13.73 10.3673 14.1792 9.14861 15.4646 9.14861H17.5302V6.26199C17.1672 6.21292 16.3996 6.10596 14.9493 6.10596C11.9205 6.10596 10.145 7.7053 10.145 11.3494V13.5503H7.03125V16.8584H10.1444V25.9512C10.761 26.043 11.3857 26.106 12.0268 26.106C12.6063 26.106 13.1719 26.0531 13.73 25.9776V16.8578Z"
+          fill="white"
+        />
+      </G>
+      <Defs>
+        <LinearGradient
+          id="paint0_linear_8423_10425"
+          x1="3.5958"
+          y1="3.5958"
+          x2="21.969"
+          y2="21.969"
+          gradientUnits="userSpaceOnUse"
+        >
+          <Stop stopColor="#2AA4F4" />
+          <Stop offset="1" stopColor="#007AD9" />
+        </LinearGradient>
+        <ClipPath id="clip0_8423_10425">
+          <Rect width="24" height="24" fill="white" />
+        </ClipPath>
+      </Defs>
+    </Svg>
+  );
+}
