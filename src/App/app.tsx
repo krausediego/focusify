@@ -11,6 +11,12 @@ import { InitialState, NavigationContainer } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
 import { RootNavigation } from "@/routes";
+import { SheetProvider } from "react-native-actions-sheet";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import "./sheets";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { PortalHost } from "@rn-primitives/portal";
+import { AuthProvider } from "@/hooks/useAuth";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -58,13 +64,26 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer
-      initialState={initialNavState}
-      onStateChange={(state) =>
-        AsyncStorage.setItem("NAVIGATION_STATE", JSON.stringify(state))
-      }
+    <GestureHandlerRootView
+      style={{
+        flex: 1,
+      }}
     >
-      <RootNavigation />
-    </NavigationContainer>
+      <SafeAreaProvider>
+        <AuthProvider>
+          <NavigationContainer
+            initialState={initialNavState}
+            onStateChange={(state) =>
+              AsyncStorage.setItem("NAVIGATION_STATE", JSON.stringify(state))
+            }
+          >
+            <SheetProvider context="global">
+              <RootNavigation />
+            </SheetProvider>
+          </NavigationContainer>
+        </AuthProvider>
+        <PortalHost />
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 }

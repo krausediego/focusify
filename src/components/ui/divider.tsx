@@ -1,12 +1,14 @@
+import { cn } from "@/lib/utils";
 import { View, Text } from "react-native";
 
 type DividerProps = {
+  className?: string;
   children?: string;
 };
 
-export function Divider({ children }: DividerProps) {
+export function Divider({ className, children }: DividerProps) {
   return (
-    <View className="flex-row items-center">
+    <View className={cn("flex-row items-center", className)}>
       <View className="h-px flex-1 bg-grey-200" />
       {children && (
         <>

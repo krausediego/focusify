@@ -65,6 +65,7 @@ module.exports = {
           brown: "rgb(248, 243, 241/<alpha-value>)",
           yellow: "rgb(255, 252, 235/<alpha-value>)",
         },
+        error: "rgb(247, 85, 85/<alpha-value>)",
         success: "rgb(18, 209, 142/<alpha-value>)",
         info: "rgb(255, 99, 71/<alpha-value>)",
         warning: "rgb(250, 204, 21/<alpha-value>)",

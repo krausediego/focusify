@@ -1,12 +1,21 @@
+import * as React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { ArrowDown, BackgroundHome, Play } from "assets/svgs";
 import { CustomCircularProgress } from "@/components/ui/circular-progress";
 import { useCountdownTimer } from "@/hooks/useCountdownTimer";
 import { Button } from "@/components/ui/button";
 import { ButtonText } from "@/components/ui/button-text";
+import { SheetManager } from "react-native-actions-sheet";
 
 export function PomodoroScreen() {
-  const { startCountdown, progress, timeFormatted } = useCountdownTimer();
+  const {
+    startCountdown,
+    pauseCountdown,
+    remainingSeconds,
+    isRunning,
+    progress,
+    timeFormatted,
+  } = useCountdownTimer();
 
   return (
     <View className="relative flex-1 items-center justify-evenly bg-white px-6">
@@ -14,7 +23,13 @@ export function PomodoroScreen() {
         <BackgroundHome />
       </View>
 
-      <TouchableOpacity className="h-[65px] w-full flex-row items-center justify-between rounded-[10px] bg-white px-5">
+      <TouchableOpacity
+        // activeOpacity={0.7}
+        onPress={() => {
+          SheetManager.show("tasks-sheet");
+        }}
+        className="h-[65px] w-full flex-row items-center justify-between rounded-[10px] bg-white px-5"
+      >
         <Text className="font-400 text-xl text-grey-500">Select Task</Text>
         <ArrowDown />
       </TouchableOpacity>
@@ -33,7 +48,12 @@ export function PomodoroScreen() {
           }}
           className="relative h-[348px] w-[348px] items-center justify-center rounded-full bg-white"
         >
-          <CustomCircularProgress progress={progress} />
+          <CustomCircularProgress
+            progress={progress}
+            progressColor={
+              !isRunning && remainingSeconds ? "#1A96F0" : "#FF6347"
+            }
+          />
           <View className="absolute items-center">
             <Text className="font-700 text-[64px] text-grey-900">
               {timeFormatted}
@@ -43,12 +63,18 @@ export function PomodoroScreen() {
         </View>
 
         <Button
-          className="w-[200px] gap-4"
+          className="w-auto min-w-[200px] gap-4"
+          variant={isRunning ? "outline" : "primary"}
           rounded
-          onPress={() => startCountdown(2)}
+          onPress={() => {
+            isRunning ? pauseCountdown() : startCountdown(2);
+          }}
         >
-          <Play />
-          <ButtonText>Start to Focus</ButtonText>
+          {!isRunning && <Play />}
+          <ButtonText>
+            {!isRunning && !remainingSeconds && "Start to Focus"}
+            {isRunning && "Pause"}
+          </ButtonText>
         </Button>
       </View>
     </View>
