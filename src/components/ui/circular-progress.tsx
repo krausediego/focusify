@@ -10,11 +10,15 @@ import Animated, {
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
-type Props = {
-  progress: number; // entre 0.0 e 1.0
+type CustomCircularProgressProps = {
+  progress: number;
+  progressColor?: string;
 };
 
-export function CustomCircularProgress({ progress }: Props) {
+export function CustomCircularProgress({
+  progress,
+  progressColor = "#FF6347",
+}: CustomCircularProgressProps) {
   const animatedProgress = useSharedValue(0);
 
   useEffect(() => {
@@ -43,7 +47,7 @@ export function CustomCircularProgress({ progress }: Props) {
           cx={size / 2}
           cy={size / 2}
           r={radius}
-          stroke="#E0E0E0" // ThemeApp.gray100
+          stroke="#F5F5F5" // ThemeApp.gray100
           strokeWidth={strokeWidth}
           fill="none"
         />
@@ -53,7 +57,7 @@ export function CustomCircularProgress({ progress }: Props) {
           cx={size / 2}
           cy={size / 2}
           r={radius}
-          stroke="#FF6347" // ThemeApp.primary900
+          stroke={progressColor} // ThemeApp.primary900
           strokeWidth={strokeWidth}
           fill="none"
           strokeDasharray={`${circumference} ${circumference}`}

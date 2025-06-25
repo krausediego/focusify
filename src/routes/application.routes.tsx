@@ -1,12 +1,13 @@
 import * as React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { PomodoroScreen } from "@/pages/application/pomodoro/pomodoro";
-import { ManageScreen } from "@/pages/application/manage/manage";
 import { CalendarScreen } from "@/pages/application/calendar/calendar";
 import { ReportScreen } from "@/pages/application/report/report";
 import { SettingsScreen } from "@/pages/application/settings/settings";
 import { Activity, Calendar, Category, Setting, TimeCircle } from "assets/svgs";
 import { Text } from "react-native";
+import { ManagePages } from "@/pages/application/manage";
+import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 
 const Tabs = createBottomTabNavigator();
 
@@ -34,6 +35,7 @@ export function ApplicationTabs() {
         name="Pomodoro"
         component={PomodoroScreen}
         options={{
+          headerTitle: "Focusify",
           headerStyle: {
             backgroundColor: "#FF6347",
           },
@@ -45,11 +47,19 @@ export function ApplicationTabs() {
       />
       <Tabs.Screen
         name="Manage"
-        component={ManageScreen}
-        options={{
-          tabBarIcon: ({ focused, color }) => (
-            <Category fill={color} filled={focused} />
-          ),
+        component={ManagePages}
+        options={({ route }) => {
+          const routeName = getFocusedRouteNameFromRoute(route);
+          console.log(routeName);
+          const isVisible = routeName === "ManageHome";
+
+          return {
+            headerShown: false,
+            tabBarIcon: ({ focused, color }) => (
+              <Category fill={color} filled={focused} />
+            ),
+            tabBarStyle: !isVisible && { display: "none" },
+          };
         }}
       />
       <Tabs.Screen

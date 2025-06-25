@@ -5,12 +5,12 @@ import { ButtonTextClassContext } from "./button-text";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = tv({
-  base: "w-full relative flex-row justify-center items-center rounded-[14px]",
+  base: "w-full relative flex-row justify-center items-center rounded-[14px] px-8",
   variants: {
     variant: {
       primary: "bg-primary",
       secondary: "bg-background-orange",
-      outline: "bg-white",
+      outline: "bg-white border border-primary",
       social: "bg-white border border-grey-200",
     },
     size: {
@@ -19,6 +19,7 @@ const buttonVariants = tv({
       sm: "h-[50px]",
       xs: "h-[43px]",
       icon: "w-[65px] h-[65px] rounded-full",
+      floating: "w-[56px] h-[56px]",
     },
     rounded: {
       true: "rounded-full",
@@ -46,6 +47,7 @@ const buttonTextVariants = tv({
       sm: "text-md",
       xs: "text-sm",
       icon: "",
+      floating: "",
     },
     rounded: {
       true: "",

@@ -76,6 +76,7 @@ export function useCountdownTimer() {
     isRunning,
     startCountdown,
     pauseCountdown,
+    remainingSeconds,
     reset: () => {
       pauseCountdown();
       setTotalSeconds(0);

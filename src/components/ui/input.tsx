@@ -14,11 +14,11 @@ const Input = React.forwardRef<
   const [hasValue, setHasValue] = React.useState<string | undefined>(undefined);
 
   return (
-    <View className="gap-2">
+    <View className="w-full gap-2">
       {label && <Text className="font-600 text-xl text-grey-900">{label}</Text>}
       <View className="relative justify-center">
         <View className="absolute left-5 z-10">
-          <IconLeft />
+          <IconLeft width="20" height="21" fill="#212121" />
         </View>
         <TextInput
           ref={ref}
